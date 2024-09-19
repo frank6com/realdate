@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         日期格式转换
 // @namespace    http://frank6.com/
-// @version      1.3
+// @version      1.4
 // @description  将英文版的日期格式转换为2024年9月10日这种格式
 // @author       Frank6
 // @match        *://*/*
@@ -13,7 +13,7 @@
     'use strict';
 
     // 匹配常见的英文日期格式：09/10/2024, September 10, 2024, Sep 10, 2024, 17 August 2024
-    const dateRegex = /((?:(?:\d{1,2}\/\d{1,2}\/)|(?:\w+\b[\s-]\w+\b,?\s))(?:\d{4}|\d{2}))/g;
+    const dateRegex = /((?:(?:\d{1,2}\/\d{1,2}\/)|(?:\w+\b[\s-.]\s?\w+\b,?\s))(?:\d{4}|\d{2}))/g;
 
 
     // 获取页面中的所有文本节点
@@ -51,11 +51,13 @@
             January: 1, February: 2, March: 3, April: 4, May: 5, June: 6,
             July: 7, August: 8, September: 9, October: 10, November: 11, December: 12,
             Jan: 1, Feb: 2, Mar: 3, Apr: 4, Jun: 6,
-            Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12
+            Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12,
+            Janu:1, Febr:2, Marc:3, Apri:4, June:6,
+            Juli:7, Agus:8, Sept:9, Octo:10, Nov:11, Dece:12,
         };
 
 
-        let firstDateMatch = /(\w+)[\s|-](\d{1,2})[,|]\s(\d{4}|\d{2})/.exec(dateStr);
+        let firstDateMatch = /(\w+)[\s-.]?\s?(\d{1,2}),?\s(\d{4}|\d{2})/.exec(dateStr);
         if (firstDateMatch && months[firstDateMatch[1]]) {
             let month = months[firstDateMatch[1]];
             let day = firstDateMatch[2];
